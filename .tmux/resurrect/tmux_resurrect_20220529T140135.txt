@@ -1,3 +1,0 @@
-pane	main	0	1	:*	0	dp@dp:~	:/home/dp	1	zsh	:
-window	main	0	:zsh	1	:*	b03d,151x41,0,0,0	:
-state	main	
