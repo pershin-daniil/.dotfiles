@@ -26,9 +26,13 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 " Declare the list of plugins.
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'gruvbox-community/gruvbox'
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+let g:catppuccin_flavour = "mocha" " latte, frappe, macchiato, mocha
 
-colorscheme gruvbox
-highlight Normal guibg=none
+lua << EOF
+require("catppuccin").setup()
+EOF
+
+colorscheme catppuccin
