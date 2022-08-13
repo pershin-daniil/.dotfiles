@@ -1,3 +1,6 @@
 # My dotfiles
 
-Now it's home directory with gitignore of all files.
+* NVIM
+* awesome
+
+Now that's all I need.
