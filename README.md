@@ -3,4 +3,4 @@
 * NVIM
 * awesome
 
-Now that's all I need.
+I wonder to have move awesome dotfiles, but now I understand, that these two enough
