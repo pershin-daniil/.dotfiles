@@ -50,10 +50,17 @@ vim.cmd('colorscheme tokyonight')
 require('telescope').setup{
   defaults = {
     prompt_prefix = "$ "
-  }
+  },
+  extensions = {
+    coc = {
+        theme = 'ivy',
+        prefer_locations = true, -- always use Telescope locations to preview definitions/declarations/implementations etc
+    }
+  },
 }
 require('telescope').load_extension('fzf')
 require("telescope").load_extension('file_browser')
+require('telescope').load_extension('coc')
 
 -- PAKER
 vim.cmd [[packadd packer.nvim]]
@@ -70,5 +77,6 @@ return require('packer').startup(function(use)
   }
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
   use { "nvim-telescope/telescope-file-browser.nvim" }
+  use 'fannheyward/telescope-coc.nvim'
 
   end)
