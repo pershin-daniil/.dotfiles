@@ -41,19 +41,19 @@ o.splitbelow = true
 o.jumpoptions = 'view'
 
 -- AFTER
-g.tokyonight_transparent_sidebar = true
-g.tokyonight_transparent = true
-o.background = "dark"
-vim.cmd('colorscheme tokyonight')
+--g.tokyonight_transparent_sidebar = true
+--g.tokyonight_transparent = true
+--o.background = "dark"
+--vim.cmd('colorscheme tokyonight')
 
 
-require('telescope').setup{
-  defaults = {
-    prompt_prefix = "$ "
-  },
-}
-require('telescope').load_extension('fzf')
-require("telescope").load_extension('file_browser')
+--require('telescope').setup{
+--  defaults = {
+--    prompt_prefix = "$ "
+--  },
+--}
+--require('telescope').load_extension('fzf')
+-- require("telescope").load_extension('file_browser')
 -- require('telescope').load_extension('coc')
 -- require('telescope').load_extension('')
 
