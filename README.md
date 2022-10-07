@@ -1,4 +1,8 @@
-# Letter to future myself
+# A letter to myself in the future 2
+Ok, finally, you install `Arch` and I forgot to `push` my previous changes...
+One more problem is when you `install kitty` and etc, you create a dir in **.config**, so when you create semilinks they appears in created folder, and don't work properly. Now I think I can add `rm -frd <path>` and then create a semilink to this `<path>`. Also, I add a packer installer link.
+
+# A letter to myself in the future
 It's great that I start doing all this stuff, but listen I'm not good at scripts and now `2022-09-10` I don't know how to do this...
 
 ### You really wanted to use Sway due to Wayland
