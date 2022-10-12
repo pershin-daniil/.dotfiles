@@ -99,3 +99,4 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias qmk-pppershin="cd qmk_firmware/keyboards/keebio/iris/keymaps/pppershin/"
