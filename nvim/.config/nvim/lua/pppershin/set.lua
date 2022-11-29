@@ -1,5 +1,6 @@
 local o = vim.opt
 
+o.laststatus = 3
 o.guicursor = ""
 
 o.nu = true
