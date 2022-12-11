@@ -8,11 +8,17 @@ stow -nvt ~
 <details><summary>A letter for myself ARCHIVE</summary>
 <p>
 
+# A letter to myself in the future 3
+
+Thanks @numToStr for information that his dotfiles managed by GNU stow, that made me think what GNU stow is...and now I can configure my programs very easily...the nex step I need to understand how can I install all my programs in one time and do I need it?
+
 # A letter to myself in the future 2
+
 Ok, finally, you install `Arch` and I forgot to `push` my previous changes...
 One more problem is when you `install kitty` and etc, you create a dir in **.config**, so when you create semilinks they appears in created folder, and don't work properly. Now I think I can add `rm -frd <path>` and then create a semilink to this `<path>`. Also, I add a packer installer link.
 
 # A letter to myself in the future
+
 It's great that I start doing all this stuff, but listen I'm not good at scripts and now `2022-09-10` I don't know how to do this...
 
 ### You really wanted to use Sway due to Wayland
@@ -41,5 +47,6 @@ By the way you use `zsh`.
 ### Finally
 
 And that's it. That how you've installed your enviroment, I hope future you will make something more elegant.
+
 </p>
 </details>
