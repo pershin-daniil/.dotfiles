@@ -1,1 +1,1 @@
-require('pppershin')
+require('config')
