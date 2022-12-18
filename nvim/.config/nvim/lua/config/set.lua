@@ -5,6 +5,7 @@ o.guicursor = ""
 
 o.nu = true
 o.relativenumber = true
+o.colorcolumn = "80"
 
 o.tabstop = 4
 o.softtabstop = 4
