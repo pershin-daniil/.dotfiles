@@ -29,3 +29,11 @@ You need **git**, and **stow**
 stow -nvt ~
 ```
 
+## kitty install
+
+### Ubuntu
+
+```bash
+sudo apt install kitty
+sudo update-alternatives --config x-terminal-emulator
+```
