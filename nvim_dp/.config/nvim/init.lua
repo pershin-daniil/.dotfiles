@@ -1,0 +1,2 @@
+require("dpershin")
+print("hello")
