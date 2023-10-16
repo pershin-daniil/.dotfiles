@@ -1,4 +1,4 @@
-# Logo key. Use Mod1 for Alt.
+# Logo key. Use Mod1 for Alt. Mod4 for Win.
 set $mod Mod4
 # Home row direction keys, like vim
 set $left h
@@ -28,14 +28,12 @@ output * bg ~/.dotfiles/background.png fill
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
 ### Idle configuration
-#
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
+
+exec swayidle -w \
+         timeout 300 'swaylock -f -c 000000' \
+         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f -c 000000'
+
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
@@ -53,6 +51,16 @@ output * bg ~/.dotfiles/background.png fill
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
+
+input "1118:1861:Microsoft_Microsoft___2.4GHz_Transceiver_v7.0_Consumer_Control" {
+    xkb_layout us,ru
+    xkb_options grp:win_space_toggle
+}
+
+input "1:1:AT_Translated_Set_2_keyboard" {
+    xkb_layout us,ru
+    xkb_options grp:win_space_toggle
+}
 
 input "51984:25430:Keebio_Iris_Rev._6a" {
     xkb_layout us,ru
@@ -200,14 +208,21 @@ bindsym $mod+r mode "resize"
 #
 ## set brightness logarithmically by factor 1.4
 # .72 is just slightly bigger than 1 / 1.4
-#bindsym --locked XF86MonBrightnessUp exec light -S "$(light -G | awk '{ print int(($1 + .72) * 1.4) }')"
-#bindsym --locked XF86MonBrightnessDown exec light -S "$(light -G | awk '{ print int($1 / 1.4) }')"
+bindsym XF86MonBrightnessUp exec light -S "$(light -G | awk '{ print int(($1 + .72) * 1.4) }')"
+bindsym XF86MonBrightnessDown exec light -S "$(light -G | awk '{ print int($1 / 1.4) }')"
+
 #
+# Volume
+#
+bindsym XF86AudioRaiseVolume exec ~/.config/sway/volume_control.sh up
+bindsym XF86AudioLowerVolume exec ~/.config/sway/volume_control.sh down 
+
+
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    font "PT Mono Bold 15"
+    font "PT Mono Bold 9"
     position top
 
     # When the status_command prints a new line to stdout, swaybar updates.
