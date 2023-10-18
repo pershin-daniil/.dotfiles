@@ -4,6 +4,12 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=$HOME/go/bin:$PATH
 
+export GOPATH=$HOME/go
+export GOROOT=/usr/local/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOPATH
+export PATH=$PATH:$GOROOT/bin
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
