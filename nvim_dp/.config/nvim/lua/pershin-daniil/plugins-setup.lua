@@ -1,3 +1,4 @@
+-- auto install packer if not installed
 local ensure_packer = function()
   local fn = vim.fn
   local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
@@ -11,10 +12,10 @@ end
 
 local packer_bootstrap = ensure_packer()
 
-vim.cmd([[
+vim.cmd([[ 
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost plugins-setup.lua source <afile> | PackerCompile
+    autocmd BufWritePost plugins-setup.lua source <afile> | PackerSync
   augroup end
 ]])
 
@@ -26,10 +27,10 @@ end
 return packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
-  use 'bluz71/vim-nightfly-guicolor'
+  use 'bluz71/vim-nightfly-guicolors'
 
   if packer_bootstrap then
     require('packer').sync()
   end
 end)
-
+  
