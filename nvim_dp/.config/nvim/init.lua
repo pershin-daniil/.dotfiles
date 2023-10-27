@@ -7,3 +7,4 @@ require("pershin-daniil.core.colorscheme")
 
 require("pershin-daniil.plugins.comment")
 require("pershin-daniil.plugins.nvim-tree")
+require("pershin-daniil.plugins.lualine")
