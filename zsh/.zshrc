@@ -109,5 +109,3 @@ export LANG=en_US.UTF-8
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias qmk-pppershin="cd qmk_firmware/keyboards/keebio/iris/keymaps/pppershin/"
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
