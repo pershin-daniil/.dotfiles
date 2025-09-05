@@ -8,6 +8,7 @@ btop
 btrfs-progs
 cmake
 efibootmgr
+fd
 flatpak
 foot
 gamemode
@@ -44,6 +45,7 @@ pipewire-alsa
 pipewire-jack
 pipewire-pulse
 podman
+ripgrep
 slurp
 smartmontools
 snapper
@@ -54,6 +56,7 @@ swaybg
 swayidle
 swaylock
 tmux
+ttf-hack-nerd
 vim
 vulkan-intel
 vulkan-nouveau
