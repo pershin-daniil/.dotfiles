@@ -62,6 +62,7 @@ waybar
 wget
 wireless_tools
 wireplumber
+wl-clipboard
 wmenu
 xcb-util-image
 xdg-utils
