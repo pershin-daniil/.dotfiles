@@ -37,3 +37,7 @@ stow -nvt ~
 sudo apt install kitty
 sudo update-alternatives --config x-terminal-emulator
 ```
+pacman -Qqe > pkglist
+pacman -Qqm > aurlist
+yay -S --needed - < aurlist
+sudo pacman -S --needed - < pkglist
