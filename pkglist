@@ -7,6 +7,7 @@ brightnessctl
 btop
 btrfs-progs
 cmake
+docker
 efibootmgr
 fd
 flatpak
@@ -23,6 +24,7 @@ gst-plugin-pipewire
 htop
 intel-media-driver
 iwd
+lazygit
 libpulse
 libva-intel-driver
 linux
@@ -44,6 +46,7 @@ pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
+plymouth
 podman
 ripgrep
 slurp
