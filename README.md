@@ -1,21 +1,16 @@
 # Setup
 
-- Ubuntu LTS (every lts update)
+- Arch
+- Sway
 
 ## Programs
 
 ### stow configs
 
-- kitty 
+- alacritty
 - zsh with oh-my-zsh
+- zellij
 - nvim
-
-### without configs
-
-- chrome
-- blender ?
-- goland
-- waka-time
 
 Also the repo has configs for:
 
@@ -25,19 +20,18 @@ Also the repo has configs for:
 
 You need **git**, and **stow**
 
-```
+```shell
 stow -nvt ~
 ```
 
-## kitty install
+## Commands for store packages
 
-### Ubuntu
-
-```bash
-sudo apt install kitty
-sudo update-alternatives --config x-terminal-emulator
-```
+```shell
 pacman -Qqe > pkglist
 pacman -Qqm > aurlist
+```
+
+```shell
 yay -S --needed - < aurlist
 sudo pacman -S --needed - < pkglist
+```

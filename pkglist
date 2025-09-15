@@ -79,6 +79,7 @@ xorg-xinit
 xorg-xwayland
 yay
 yay-debug
+zellij
 zip
 zram-generator
 zsh
