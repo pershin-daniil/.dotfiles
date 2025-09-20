@@ -10,8 +10,10 @@ cmake
 docker
 efibootmgr
 fd
+flameshot
 flatpak
 foot
+fzf
 gamemode
 gamescope
 git
@@ -41,6 +43,7 @@ network-manager-applet
 networkmanager
 npm
 os-prober
+pacman-contrib
 pavucontrol
 pipewire
 pipewire-alsa
@@ -59,6 +62,7 @@ swaybg
 swayidle
 swaylock
 ttf-hack-nerd
+ueberzugpp
 vim
 vulkan-intel
 vulkan-nouveau
@@ -79,6 +83,7 @@ xorg-xinit
 xorg-xwayland
 yay
 yay-debug
+yazi
 zellij
 zip
 zram-generator
