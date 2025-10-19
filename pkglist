@@ -24,6 +24,7 @@ grim
 grub
 gst-plugin-pipewire
 htop
+imv
 intel-media-driver
 iwd
 lazygit
@@ -61,6 +62,7 @@ sway
 swaybg
 swayidle
 swaylock
+syncthing
 ttf-hack-nerd
 ueberzugpp
 vim
