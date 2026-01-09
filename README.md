@@ -29,6 +29,7 @@ stow -nvt ~
 ```shell
 pacman -Qqe > pkglist
 pacman -Qqm > aurlist
+flatpak list --app --columns=application > flatpak-apps
 ```
 
 ```shell

@@ -55,6 +55,7 @@ pipewire-alsa
 pipewire-jack
 pipewire-pulse
 plymouth
+python-pip
 ripgrep
 rsync
 slurp
@@ -62,6 +63,7 @@ smartmontools
 snapper
 steam
 stow
+stress-ng
 sway
 swaybg
 swayidle
