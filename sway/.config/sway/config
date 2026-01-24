@@ -210,7 +210,8 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to take a screenshot with grim
-    bindsym $mod+p exec flameshot gui
+    bindsym $mod+p exec grim -g "$(slurp)" - | wl-copy
+    bindsym $mod+shift+p exec grim -g "$(slurp)" - | swappy -f -
 
 #
 # Status Bar:
