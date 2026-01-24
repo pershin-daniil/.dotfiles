@@ -81,6 +81,7 @@ require("lazy").setup({
 				extensions = {
 					file_browser = {
 						hidden = { file_browser = true, folder_browser = true },
+						follow_symlinks = true,
 						hijack_netrw = true,
 					}
 				}

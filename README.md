@@ -35,4 +35,5 @@ flatpak list --app --columns=application > flatpak-apps
 ```shell
 yay -S --needed - < aurlist
 sudo pacman -S --needed - < pkglist
+for i in $(cat flatpak-apps); do flatpak install flathub $i; done
 ```
