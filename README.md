@@ -5,11 +5,8 @@
 
 ## Programs
 
-### stow configs
-
-- alacritty
+- kitty
 - zsh with oh-my-zsh
-- zellij
 - nvim
 
 Also the repo has configs for:
@@ -37,3 +34,11 @@ yay -S --needed - < aurlist
 sudo pacman -S --needed - < pkglist
 for i in $(cat flatpak-apps); do flatpak install flathub $i; done
 ```
+
+```shell
+sudo visudo
+
+# add line
+Defaults editor=/usr/bin/nvim:/usr/bin/vim:/usr/bin/vi
+```
+
