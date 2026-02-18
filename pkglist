@@ -8,6 +8,7 @@ bind
 brightnessctl
 btop
 btrfs-progs
+clang
 cloc
 cmake
 dosfstools
@@ -24,6 +25,7 @@ gamescope
 git
 gnome-themes-extra
 go-task
+gperf
 greetd
 greetd-tuigreet
 grim
@@ -38,6 +40,8 @@ iwd
 jq
 kitty
 lazygit
+libc++
+libc++abi
 libpulse
 libva-intel-driver
 linux
@@ -105,6 +109,7 @@ wireless_tools
 wireplumber
 wl-clipboard
 wmenu
+wofi
 xcb-util-image
 xdg-user-dirs
 xdg-utils

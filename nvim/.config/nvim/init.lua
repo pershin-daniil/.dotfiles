@@ -26,6 +26,10 @@ vim.keymap.set("n", "<S-Tab>", ":wincmd r<CR>", { desc = "[R]otate windows" })
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search [H]ighlight" })
 
+-- terminal mode
+vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
+vim.keymap.set("n", "<leader>T", ":botright 15split | lcd %:p:h | terminal<CR>", { desc = "[T]erminal"})
+
 --
 -- autocmd
 --
@@ -36,6 +40,12 @@ vim.api.nvim_create_autocmd("VimEnter", {
       vim.cmd("Telescope file_browser path=" .. vim.fn.fnameescape(arg))
     end
   end,
+})
+
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function ()
+    vim.cmd("startinsert")
+  end
 })
 
 --

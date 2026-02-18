@@ -16,7 +16,7 @@ set $right l
 # Your preferred terminal emulator
 set $term kitty
 # Your preferred application launcher
-set $menu wmenu-run
+set $menu wofi --show run
 
 ### Output configuration
 #
@@ -218,9 +218,9 @@ bindsym $mod+shift+p exec grim -g "$(slurp)" - | swappy -f -
 
 font Hack Nerd Font 9
 
-client.focused          #7AA2F7 #1A1B26 #C0CAF5 #7DCFFF #7AA2F7
-client.focused_inactive #414868 #24283B #A9B1D6 #414868 #24283B
-client.unfocused        #24283B #1A1B26 #A9B1D6 #24283B #1A1B26
+client.focused          #7AA2F7 #1A1B26 #C0CAF5 #7AA2F7 #7AA2F7
+client.focused_inactive #292E42 #1A1B26 #545C7E #292E42 #292E42
+client.unfocused        #292E42 #1A1B26 #545C7E #292E42 #292E42
 client.urgent           #F7768E #F7768E #1A1B26 #F7768E #F7768E
 client.placeholder      #1A1B26 #1A1B26 #C0CAF5 #1A1B26 #1A1B26
 
@@ -238,12 +238,12 @@ bar {
 	colors {
 		background #1A1B26
 		statusline #C0CAF5
-		separator  #414868
+		separator  #292E42
 
-		focused_workspace  #7AA2F7 #1A1B26 #C0CAF5
-		active_workspace   #24283B #24283B #A9B1D6
-		inactive_workspace #1A1B26 #1A1B26 #565F89
-		urgent_workspace   #F7768E #1A1B26 #1A1B26
+		focused_workspace  #7AA2F7 #16161E #7AA2F7
+		active_workspace   #7AA2F7 #7AA2F7 #C0CAF5
+		inactive_workspace #292E42 #292E42 #545C7E
+		urgent_workspace   #F7768E #1A1B26 #F7768E
 		binding_mode       #E0AF68 #1A1B26 #1A1B26
 	}
 }
