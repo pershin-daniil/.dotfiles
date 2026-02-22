@@ -1,0 +1,52 @@
+#!/usr/bin/zsh
+set -euo pipefail
+
+INSTALL_DIR="/opt/telegram"
+TARGET_DIR="$INSTALL_DIR/Telegram"
+TARGET_BIN="$TARGET_DIR/Telegram"
+SYMLINK="$HOME/.local/bin/telegram"
+
+URL="https://telegram.org/dl/desktop/linux"
+
+need() { command -v "$1" >/dev/null 2>&1 || { echo "Missing dependency: $1" >&2; exit 1; }; }
+need curl
+need mktemp
+need tar
+need install
+need ln
+
+TMP_DIR="$(mktemp -d)"
+cleanup() { rm -rf "$TMP_DIR"; }
+trap cleanup EXIT
+
+echo "Stopping Telegram (if running)..."
+pkill -x telegram 2>/dev/null || true
+
+echo "Downloading latest Telegram Desktop..."
+curl -fL --retry 5 --retry-delay 1 --connect-timeout 10 -o "$TMP_DIR/telegram.tar.xz" "$URL"
+
+echo "Extracting..."
+tar -xJf "$TMP_DIR/telegram.tar.xz" -C "$TMP_DIR"
+
+# Official archive usually contains "Telegram/" dir with "Telegram" binary inside
+if [[ ! -d "$TMP_DIR/Telegram" ]]; then
+  echo "Unexpected archive layout: missing $TMP_DIR/Telegram" >&2
+  exit 1
+fi
+if [[ ! -f "$TMP_DIR/Telegram/Telegram" ]]; then
+  echo "Unexpected archive layout: missing Telegram binary" >&2
+  exit 1
+fi
+
+
+echo "Installing to $TARGET_DIR ..."
+sudo mkdir -p "$INSTALL_DIR"
+mv "$TMP_DIR/Telegram" "$TMP_DIR/Telegram.new"
+sudo rm -rf "$TARGET_DIR"
+sudo mv "$TMP_DIR/Telegram.new" "$TARGET_DIR"
+
+echo "Ensuring launcher symlink $SYMLINK ..."
+mkdir -p "$HOME/.local/bin"
+ln -sfn "$TARGET_BIN" "$SYMLINK"
+
+echo "Done. Run: telegram"

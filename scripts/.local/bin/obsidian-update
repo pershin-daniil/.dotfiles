@@ -1,0 +1,40 @@
+#!/usr/bin/zsh
+set -euo pipefail
+
+INSTALL_DIR="/opt/obsidian"
+TARGET="$INSTALL_DIR/obsidian.AppImage"
+SYMLINK="$HOME/.local/bin/obsidian"
+
+need() { command -v "$1" >/dev/null 2>&1 || { echo "Missing dependency: $1" >&2; exit 1; }; }
+need curl
+need mktemp
+need install
+need ln
+
+URL="${1:-}"
+if [[ -z "$URL" ]]; then
+  echo "Usage: $0 <Obsidian.AppImage URL>" >&2
+  echo "Example: $0 https://github.com/obsidianmd/obsidian-releases/releases/download/v1.11.7/Obsidian-1.11.7.AppImage" >&2
+  exit 2
+fi
+
+TMP_DIR="$(mktemp -d)"
+cleanup() { rm -rf "$TMP_DIR"; }
+trap cleanup EXIT
+
+echo "Stopping Obsidian (if running)..."
+pkill -x obsidian 2>/dev/null || true
+
+echo "Downloading..."
+curl -fL --retry 5 --retry-delay 1 --connect-timeout 10 -o "$TMP_DIR/Obsidian.AppImage" "$URL"
+
+echo "Installing to $TARGET ..."
+sudo mkdir -p "$INSTALL_DIR"
+sudo install -m 755 "$TMP_DIR/Obsidian.AppImage" "$TARGET.new"
+sudo mv -f "$TARGET.new" "$TARGET"
+
+echo "Ensuring launcher symlink $SYMLINK ..."
+mkdir -p "$HOME/.local/bin"
+ln -sfn "$TARGET" "$SYMLINK"
+
+echo "Done. Run: obsidian"

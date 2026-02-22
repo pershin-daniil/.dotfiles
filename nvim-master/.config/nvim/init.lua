@@ -1,12 +1,32 @@
+-- NVIM v0.12.0-dev-2348+gd23f28cca2
+-- Build type: RelWithDebInfo
+-- LuaJIT 2.1.1771261233
+
 local o = vim.o
 
 o.nu = true
 o.rnu = true
 o.nuw = 5
 
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'netrw', 'help', },
+    callback = function()
+        vim.opt_local.nu = true
+        vim.opt_local.rnu = true
+    end,
+})
+vim.api.nvim_create_autocmd('BufWinEnter', {
+    pattern = { '*.txt' },
+    callback = function()
+        vim.opt_local.nu = true
+        vim.opt_local.rnu = true
+    end,
+})
+
 o.cul = true
 o.wrap = false
 
+-- read :help 30.5
 vim.cmd('filetype plugin indent on')
 o.sw = 4
 o.sts = 2
@@ -22,6 +42,19 @@ local g = vim.g
 
 g.mapleader = ' '
 
+g.netrw_banner = 0
+g.netrw_hide = 0
+g.netrw_listsyle = 3
+g.netrw_browse_split = 0
+g.netrw_altv = 1
+g.netrw_winsize = 25
+
+-- keymaps
+local k = vim.keymap
+k.set('n', '<Tab>', ':wincmd w<CR>')
+k.set('n', '<S-Tab>', ':wincmd r<CR>')
+
+-- theme
 vim.pack.add({
     { src = 'https://github.com/folke/tokyonight.nvim' },
 })
@@ -33,15 +66,46 @@ require('tokyonight').setup {
 }
 vim.cmd.colo('tokyonight-night')
 
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
---
--- vim.keymap.set({ 'n', 'v' }, '<leader>y', '\'+y', { desc = '[Y]ank to system clipboard' })
--- vim.keymap.set({ 'n', 'v' }, '<leader>p', '\'+p', { desc = '[P]aste from system clipboard' })
---
--- vim.keymap.set('n', '<C-n>', ':botright vnew<CR>', { desc = '[N]ew vertical split' })
--- vim.keymap.set('n', '<Tab>', ':wincmd w<CR>', { desc = 'Next [W]indow' })
--- vim.keymap.set('n', '<S-Tab>', ':wincmd r<CR>', { desc = '[R]otate windows' })
+-- fzf
+vim.pack.add({
+    { src = 'https://github.com/ibhagwan/fzf-lua' },
+})
+
+require('fzf-lua').setup {
+  winopts = {
+      border = 'none',
+      fullscreen = true,
+      preview = {
+          border = 'none',
+          layout = 'vertical',
+      },
+  },
+}
+
+local fzf = FzfLua
+k.set( 'n', '<leader>gh', fzf.live_grep )
+k.set( 'n', '<leader>fd', fzf.files )
+k.set( 'i', '<C-F><C-F>',
+function()
+    FzfLua.complete_file({
+        cmd = 'rg --files',
+        winopts = { preview = { hidden = true } }
+    })
+end, { silent = true })
+
+vim.api.nvim_create_autocmd('VimEnter', {
+    callback = function()
+        vim.cmd('lua FzfLua.files()')
+    end,
+})
+
+-- -- vim.g.loaded_netrw = 1
+-- -- vim.g.loaded_netrwPlugin = 1
+-- --
+-- -- vim.keymap.set({ 'n', 'v' }, '<leader>y', '\'+y', { desc = '[Y]ank to system clipboard' })
+-- -- vim.keymap.set({ 'n', 'v' }, '<leader>p', '\'+p', { desc = '[P]aste from system clipboard' })
+-- --
+-- -- vim.keymap.set('n', '<C-n>', ':botright vnew<CR>', { desc = '[N]ew vertical split' })
 --
 -- vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Clear search [H]ighlight' })
 --
