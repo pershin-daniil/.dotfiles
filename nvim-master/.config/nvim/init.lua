@@ -15,6 +15,7 @@ vim.api.nvim_create_autocmd('FileType', {
         vim.opt_local.rnu = true
     end,
 })
+
 vim.api.nvim_create_autocmd('BufWinEnter', {
     pattern = { '*.txt' },
     callback = function()
@@ -38,9 +39,15 @@ o.so = 999
 o.grepprg = 'rg --vimgrep --smart-case --hidden'
 o.grepformat = '%f:%l:%c:%m'
 
+o.langmap =
+  "ФA,ИB,СC,ВD,УE,АF,ПG,РH,ШI,ОJ,ЛK,ДL,ЬM,ТN,ЩO,ЗP,ЙQ,КR,ЫS,ЕT,ГU,МV,ЦW,ЧX,НY,ЯZ," ..
+  "фa,иb,сc,вd,уe,аf,пg,рh,шi,оj,лk,дl,ьm,тn,щo,зp,йq,кr,ыs,еt,гu,мv,цw,чx,нy,яz"
+
 local g = vim.g
 
 g.mapleader = ' '
+
+g.clipboard = unnamedplus
 
 g.netrw_banner = 0
 g.netrw_hide = 0
