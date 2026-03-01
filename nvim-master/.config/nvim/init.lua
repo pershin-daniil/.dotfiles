@@ -39,8 +39,8 @@ o.grepprg = 'rg --vimgrep --smart-case --hidden'
 o.grepformat = '%f:%l:%c:%m'
 
 o.langmap =
-  "ФA,ИB,СC,ВD,УE,АF,ПG,РH,ШI,ОJ,ЛK,ДL,ЬM,ТN,ЩO,ЗP,ЙQ,КR,ЫS,ЕT,ГU,МV,ЦW,ЧX,НY,ЯZ," ..
-  "фa,иb,сc,вd,уe,аf,пg,рh,шi,оj,лk,дl,ьm,тn,щo,зp,йq,кr,ыs,еt,гu,мv,цw,чx,нy,яz"
+  'ФA,ИB,СC,ВD,УE,АF,ПG,РH,ШI,ОJ,ЛK,ДL,ЬM,ТN,ЩO,ЗP,ЙQ,КR,ЫS,ЕT,ГU,МV,ЦW,ЧX,НY,ЯZ,' ..
+  'фa,иb,сc,вd,уe,аf,пg,рh,шi,оj,лk,дl,ьm,тn,щo,зp,йq,кr,ыs,еt,гu,мv,цw,чx,нy,яz'
 
 o.clipboard = 'unnamedplus'
 
@@ -86,47 +86,80 @@ vim.pack.add({
     { src = 'https://github.com/ibhagwan/fzf-lua' },
 })
 
-require('fzf-lua').setup {
-  winopts = {
-      border = 'none',
-      fullscreen = true,
-      preview = {
-          border = 'none',
-          layout = 'vertical',
-      },
-  },
-}
+local ok, fzf = pcall(require, 'fzf-lua')
+if ok then
+    fzf.setup {
+        winopts = {
+            border = 'none',
+            fullscreen = true,
+            preview = {
+                border = 'none',
+                layout = 'vertical',
+            },
+        },
+    }
 
-local fzf = FzfLua
-k.set( 'n', '<leader>gh', fzf.live_grep )
-k.set( 'n', '<leader>fd', fzf.files )
-k.set( 'i', '<C-F><C-F>',
-function()
-    fzf.complete_file({
-        cmd = 'rg --files',
-        winopts = { preview = { hidden = true } }
+    k.set( 'n', '<leader>gh', fzf.live_grep )
+    k.set( 'n', '<leader>fd', fzf.files )
+    k.set( 'i', '<C-F><C-F>',
+    function()
+        fzf.complete_file({
+            cmd = 'rg --files',
+            winopts = { preview = { hidden = true } }
+        })
+    end, { silent = true })
+
+    vim.api.nvim_create_autocmd('VimEnter', {
+        callback = function()
+            if vim.fn.argc() == 0 and #vim.api.nvim_list_uis() > 0 then
+                vim.cmd('lua FzfLua.files()')
+            end
+        end,
     })
-end, { silent = true })
+else
+    vim.notify(
+        'fzf-lua not loaded: ' .. tostring(fzf),
+        vim.log.levels.WARN,
+        { title = 'nvim config' }
+    )
+end
 
-vim.api.nvim_create_autocmd('VimEnter', {
-    callback = function()
-        if vim.fn.argc() == 0 and #vim.api.nvim_list_uis() > 0 then
-            vim.cmd('lua FzfLua.files()')
-        end
-    end,
+-- co.nvim
+vim.pack.add({
+    {
+        src = '/home/virgil/Projects/co.nvim',
+        name = 'co.nvim',
+    },
+}, {
+    load = true,
+    confirm = false,
 })
+
+local ok, co = pcall(require,'co')
+if ok then
+    co.setup({
+        model = 'gpt-5.3-codex',
+        treesitter = false,
+    })
+else
+    vim.notify(
+        'co.nvim not loaded: ' .. tostring(co),
+        vim.log.level.WARN,
+        { title = 'nvim config' }
+    )
+end
 
 -- LSP
 -- 
 -- These GLOBAL keymaps are created unconditionally when Nvim starts:
--- - "gra" (Normal and Visual mode) is mapped to |vim.lsp.buf.code_action()|
--- - "gri" is mapped to |vim.lsp.buf.implementation()|
--- - "grn" is mapped to |vim.lsp.buf.rename()|
--- - "grr" is mapped to |vim.lsp.buf.references()|
--- - "grt" is mapped to |vim.lsp.buf.type_definition()|
--- - "gO" is mapped to |vim.lsp.buf.document_symbol()|
+-- - 'gra' (Normal and Visual mode) is mapped to |vim.lsp.buf.code_action()|
+-- - 'gri' is mapped to |vim.lsp.buf.implementation()|
+-- - 'grn' is mapped to |vim.lsp.buf.rename()|
+-- - 'grr' is mapped to |vim.lsp.buf.references()|
+-- - 'grt' is mapped to |vim.lsp.buf.type_definition()|
+-- - 'gO' is mapped to |vim.lsp.buf.document_symbol()|
 -- - CTRL-S (Insert mode) is mapped to |vim.lsp.buf.signature_help()|
--- - "an" and "in" (Visual and Operator-pending mode) are mapped to outer and inner incremental
+-- - 'an' and 'in' (Visual and Operator-pending mode) are mapped to outer and inner incremental
 --   selections, respectively, using |vim.lsp.buf.selection_range()|
 vim.lsp.config['lua_ls'] = {
     -- sudo pacman -S lua-language-server

@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "co.nvim": {
+      "rev": "d485196b0a7956e9efb9f73eccfb126b95d113b3",
+      "src": "/home/virgil/Projects/co.nvim"
+    },
     "fzf-lua": {
       "rev": "9004cbb4c065a32b690e909c49903967b45301eb",
       "src": "https://github.com/ibhagwan/fzf-lua"

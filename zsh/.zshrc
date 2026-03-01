@@ -1,6 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.local/bin:/usr/local/bin:$PATH
 export PATH=$HOME/go/bin:/usr/local/go/bin:$PATH
+export PATH=$HOME/.luarocks/bin:$PATH
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"

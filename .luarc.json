@@ -2,5 +2,8 @@
     "diagnostics.globals": [
         "vim",
         "FzfLua"
+    ],
+    "diagnostics.disable": [
+        "redefined-local"
     ]
 }
