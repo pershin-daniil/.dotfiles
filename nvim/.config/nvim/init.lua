@@ -1,71 +1,71 @@
-vim.o.number = true
-vim.o.relativenumber = true
-vim.o.cursorline = true
-vim.o.scrolloff = 999
-vim.o.wrap = false
-vim.o.incsearch = true
+v.o.number = true
+v.o.relativenumber = true
+v.o.cursorline = true
+v.o.scrolloff = 999
+v.o.wrap = false
+v.o.incsearch = true
 
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
-vim.o.softtabstop = 2
-vim.o.expandtab = true
+v.o.tabstop = 2
+v.o.shiftwidth = 2
+v.o.softtabstop = 2
+v.o.expandtab = true
 
-vim.cmd("filetype plugin indent on")
+v.cmd("filetype plugin indent on")
 
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+v.g.loaded_netrw = 1
+v.g.loaded_netrwPlugin = 1
 
-vim.g.mapleader = " "
+v.g.mapleader = " "
 
-vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y", { desc = "[Y]ank to system clipboard" })
-vim.keymap.set({ "n", "v" }, "<leader>p", "\"+p", { desc = "[P]aste from system clipboard" })
+v.keymap.set({ "n", "v" }, "<leader>y", "\"+y", { desc = "[Y]ank to system clipboard" })
+v.keymap.set({ "n", "v" }, "<leader>p", "\"+p", { desc = "[P]aste from system clipboard" })
 
-vim.keymap.set("n", "<C-n>", ":botright vnew<CR>", { desc = "[N]ew vertical split" })
-vim.keymap.set("n", "<Tab>", ":wincmd w<CR>", { desc = "Next [W]indow" })
-vim.keymap.set("n", "<S-Tab>", ":wincmd r<CR>", { desc = "[R]otate windows" })
+v.keymap.set("n", "<C-n>", ":botright vnew<CR>", { desc = "[N]ew vertical split" })
+v.keymap.set("n", "<Tab>", ":wincmd w<CR>", { desc = "Next [W]indow" })
+v.keymap.set("n", "<S-Tab>", ":wincmd r<CR>", { desc = "[R]otate windows" })
 
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search [H]ighlight" })
+v.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search [H]ighlight" })
 
 -- terminal mode
-vim.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
-vim.keymap.set("n", "<leader>T", ":botright 15split | lcd %:p:h | terminal<CR>", { desc = "[T]erminal"})
+v.keymap.set("t", "<Esc><Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
+v.keymap.set("n", "<leader>T", ":botright 15split | lcd %:p:h | terminal<CR>", { desc = "[T]erminal"})
 
 --
 -- autocmd
 --
-vim.api.nvim_create_autocmd("VimEnter", {
+v.api.nvim_create_autocmd("VimEnter", {
   callback = function()
-    local arg = vim.fn.argv(0)
-    if arg ~= "" and vim.fn.isdirectory(arg) == 1 then
-      vim.cmd("Telescope file_browser path=" .. vim.fn.fnameescape(arg))
+    local arg = v.fn.argv(0)
+    if arg ~= "" and v.fn.isdirectory(arg) == 1 then
+      v.cmd("Telescope file_browser path=" .. v.fn.fnameescape(arg))
     end
   end,
 })
 
-vim.api.nvim_create_autocmd("TermOpen", {
+v.api.nvim_create_autocmd("TermOpen", {
   callback = function ()
-    vim.cmd("startinsert")
+    v.cmd("startinsert")
   end
 })
 
 --
 -- plugins
 --
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
+local lazypath = v.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (v.uv or v.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
+  local out = v.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if v.v.shell_error ~= 0 then
+    v.api.nvim_echo({
       { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
       { out, "WarningMsg" },
       { "\nPress any key to exit..." },
     }, true, {})
-    vim.fn.getchar()
+    v.fn.getchar()
     os.exit(1)
   end
 end
-vim.opt.rtp:prepend(lazypath)
+v.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
@@ -80,7 +80,7 @@ require("lazy").setup({
           comments = { italic = false },
         },
       }
-      vim.cmd.colorscheme "tokyonight-night"
+      v.cmd.colorscheme "tokyonight-night"
     end,
   },
   {
@@ -100,7 +100,7 @@ require("lazy").setup({
         }
       }
 
-      vim.keymap.set(
+      v.keymap.set(
         "n",
         "<leader>fb",
         ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
@@ -109,7 +109,7 @@ require("lazy").setup({
 
       local builtin = require("telescope.builtin")
 
-      vim.keymap.set(
+      v.keymap.set(
         "n", "<leader>o",
         function()
           builtin.find_files{
@@ -118,7 +118,7 @@ require("lazy").setup({
         end, { desc = "[O]pen files" }
       )
 
-      vim.keymap.set(
+      v.keymap.set(
         "n", "<leader>gh",
         function()
           builtin.live_grep {
@@ -129,11 +129,11 @@ require("lazy").setup({
       )
 
       -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set(
+      v.keymap.set(
         'n', '<leader>sn',
         function()
           builtin.find_files {
-            cwd = vim.fn.stdpath 'config'
+            cwd = v.fn.stdpath 'config'
           }
         end, { desc = '[S]earch [N]eovim files' })
     end
@@ -167,7 +167,7 @@ require("lazy").setup({
     opts = {
       -- delay between pressing a key and opening which-key (milliseconds)
       delay = 0,
-      icons = { mappings = vim.g.have_nerd_font },
+      icons = { mappings = v.g.have_nerd_font },
 
       -- Document existing key chains
       spec = {
@@ -227,10 +227,10 @@ require("lazy").setup({
       --    function will be executed to configure the current buffer
 
       -- Diagnostic keymaps
-      vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "[Q]uickfix diagnostics list" })
-        vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, { desc = "[D]iagnostic [F]loat" })
-      vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+      v.keymap.set("n", "<leader>q", v.diagnostic.setloclist, { desc = "[Q]uickfix diagnostics list" })
+        v.keymap.set("n", "<leader>df", v.diagnostic.open_float, { desc = "[D]iagnostic [F]loat" })
+      v.api.nvim_create_autocmd('LspAttach', {
+        group = v.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
           -- NOTE: Remember that Lua is a real programming language, and as such it is possible
           -- to define small helper and utility functions so you don't have to repeat yourself.
@@ -239,43 +239,43 @@ require("lazy").setup({
           -- for LSP related items. It sets the mode, buffer and description for us each time.
           local map = function(keys, func, desc, mode)
             mode = mode or 'n'
-            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+            v.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
-          map('<leader>lr', vim.lsp.buf.rename, '[L]SP [R]ename')
-          map('<leader>la', vim.lsp.buf.code_action, '[L]SP Code [A]ction', { 'n', 'x' })
-          map('<leader>lD', vim.lsp.buf.declaration, '[L]SP [D]eclaration')
-          map('<leader>ld', vim.lsp.buf.definition, '[L]SP [D]efinition')
-          map('<leader>li', vim.lsp.buf.implementation, '[L]SP [I]mplementation')
-          map('<leader>lt', vim.lsp.buf.type_definition, '[L]SP [T]ype definition')
-          map('<leader>lf', vim.lsp.buf.references, '[L]SP [F]ind references')
-          map('<leader>lh', vim.lsp.buf.hover, '[L]SP [H]over')
+          map('<leader>lr', v.lsp.buf.rename, '[L]SP [R]ename')
+          map('<leader>la', v.lsp.buf.code_action, '[L]SP Code [A]ction', { 'n', 'x' })
+          map('<leader>lD', v.lsp.buf.declaration, '[L]SP [D]eclaration')
+          map('<leader>ld', v.lsp.buf.definition, '[L]SP [D]efinition')
+          map('<leader>li', v.lsp.buf.implementation, '[L]SP [I]mplementation')
+          map('<leader>lt', v.lsp.buf.type_definition, '[L]SP [T]ype definition')
+          map('<leader>lf', v.lsp.buf.references, '[L]SP [F]ind references')
+          map('<leader>lh', v.lsp.buf.hover, '[L]SP [H]over')
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
-          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          local client = v.lsp.get_client_by_id(event.data.client_id)
           if client and client:supports_method('textDocument/documentHighlight', event.buf) then
-            local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
-            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+            local highlight_augroup = v.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+            v.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
               group = highlight_augroup,
-              callback = vim.lsp.buf.document_highlight,
+              callback = v.lsp.buf.document_highlight,
             })
 
-            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+            v.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
               buffer = event.buf,
               group = highlight_augroup,
-              callback = vim.lsp.buf.clear_references,
+              callback = v.lsp.buf.clear_references,
             })
 
-            vim.api.nvim_create_autocmd('LspDetach', {
-              group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+            v.api.nvim_create_autocmd('LspDetach', {
+              group = v.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
               callback = function(event2)
-                vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+                v.lsp.buf.clear_references()
+                v.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
               end,
             })
           end
@@ -285,7 +285,7 @@ require("lazy").setup({
           --
           -- This may be unwanted, since they displace some of your code
           if client and client:supports_method('textDocument/inlayHint', event.buf) then
-            map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
+            map('<leader>th', function() v.lsp.inlay_hint.enable(not v.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
           end
         end,
       })
@@ -321,8 +321,8 @@ require("lazy").setup({
       --    :Mason
       --
       -- You can press `g?` for help in this menu.
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
+      local ensure_installed = v.tbl_keys(servers or {})
+      v.list_extend(ensure_installed, {
         'lua-language-server', -- Lua Language server
         -- 'gopls',
         -- 'rust_analyzer',
@@ -332,20 +332,20 @@ require("lazy").setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       for name, server in pairs(servers) do
-        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-        vim.lsp.config(name, server)
-        vim.lsp.enable(name)
+        server.capabilities = v.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+        v.lsp.config(name, server)
+        v.lsp.enable(name)
       end
 
       -- Special Lua Config, as recommended by neovim help docs
-      vim.lsp.config('lua_ls', {
+      v.lsp.config('lua_ls', {
         on_init = function(client)
           if client.workspace_folders then
             local path = client.workspace_folders[1].name
-            if path ~= vim.fn.stdpath 'config' and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc')) then return end
+            if path ~= v.fn.stdpath 'config' and (v.uv.fs_stat(path .. '/.luarc.json') or v.uv.fs_stat(path .. '/.luarc.jsonc')) then return end
           end
 
-          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+          client.config.settings.Lua = v.tbl_deep_extend('force', client.config.settings.Lua, {
             runtime = {
               version = 'LuaJIT',
               path = { 'lua/?.lua', 'lua/?/init.lua' },
@@ -354,7 +354,7 @@ require("lazy").setup({
               checkThirdParty = false,
               -- NOTE: this is a lot slower and will cause issues when working on your own configuration.
               --  See https://github.com/neovim/nvim-lspconfig/issues/3189
-              library = vim.api.nvim_get_runtime_file('', true),
+              library = v.api.nvim_get_runtime_file('', true),
             },
           })
         end,
@@ -362,7 +362,7 @@ require("lazy").setup({
           Lua = {},
         },
       })
-      vim.lsp.enable 'lua_ls'
+      v.lsp.enable 'lua_ls'
     end,
   },
   { -- Autocompletion
@@ -378,7 +378,7 @@ require("lazy").setup({
           -- Build Step is needed for regex support in snippets.
           -- This step is not supported in many windows environments.
           -- Remove the below condition to re-enable on windows.
-          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then return end
+          if v.fn.has 'win32' == 1 or v.fn.executable 'make' == 0 then return end
           return 'make install_jsregexp'
         end)(),
         dependencies = {

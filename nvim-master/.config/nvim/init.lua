@@ -1,7 +1,6 @@
 -- NVIM v0.12.0-dev-2348+gd23f28cca2
 -- Build type: RelWithDebInfo
 -- LuaJIT 2.1.1771261233
-
 local o = vim.o
 
 o.nu = true
@@ -43,15 +42,21 @@ o.langmap =
   "ФA,ИB,СC,ВD,УE,АF,ПG,РH,ШI,ОJ,ЛK,ДL,ЬM,ТN,ЩO,ЗP,ЙQ,КR,ЫS,ЕT,ГU,МV,ЦW,ЧX,НY,ЯZ," ..
   "фa,иb,сc,вd,уe,аf,пg,рh,шi,оj,лk,дl,ьm,тn,щo,зp,йq,кr,ыs,еt,гu,мv,цw,чx,нy,яz"
 
+o.clipboard = 'unnamedplus'
+
+vim.cmd([[
+    autocmd TextYankPost * silent! lua vim.hl.on_yank {higroup='IncSearch', timeout=100}
+]])
+
+--
+
 local g = vim.g
 
 g.mapleader = ' '
 
-g.clipboard = unnamedplus
-
 g.netrw_banner = 0
 g.netrw_hide = 0
-g.netrw_listsyle = 3
+g.netrw_liststyle = 3
 g.netrw_browse_split = 0
 g.netrw_altv = 1
 g.netrw_winsize = 25
@@ -60,6 +65,9 @@ g.netrw_winsize = 25
 local k = vim.keymap
 k.set('n', '<Tab>', ':wincmd w<CR>')
 k.set('n', '<S-Tab>', ':wincmd r<CR>')
+-- Diagnostic keymaps
+k.set('n', '<leader>q', vim.diagnostic.setloclist)
+k.set('n', '<leader>df', vim.diagnostic.open_float)
 
 -- theme
 vim.pack.add({
@@ -94,7 +102,7 @@ k.set( 'n', '<leader>gh', fzf.live_grep )
 k.set( 'n', '<leader>fd', fzf.files )
 k.set( 'i', '<C-F><C-F>',
 function()
-    FzfLua.complete_file({
+    fzf.complete_file({
         cmd = 'rg --files',
         winopts = { preview = { hidden = true } }
     })
@@ -102,9 +110,58 @@ end, { silent = true })
 
 vim.api.nvim_create_autocmd('VimEnter', {
     callback = function()
-        vim.cmd('lua FzfLua.files()')
+        if vim.fn.argc() == 0 and #vim.api.nvim_list_uis() > 0 then
+            vim.cmd('lua FzfLua.files()')
+        end
     end,
 })
+
+-- LSP
+-- 
+-- These GLOBAL keymaps are created unconditionally when Nvim starts:
+-- - "gra" (Normal and Visual mode) is mapped to |vim.lsp.buf.code_action()|
+-- - "gri" is mapped to |vim.lsp.buf.implementation()|
+-- - "grn" is mapped to |vim.lsp.buf.rename()|
+-- - "grr" is mapped to |vim.lsp.buf.references()|
+-- - "grt" is mapped to |vim.lsp.buf.type_definition()|
+-- - "gO" is mapped to |vim.lsp.buf.document_symbol()|
+-- - CTRL-S (Insert mode) is mapped to |vim.lsp.buf.signature_help()|
+-- - "an" and "in" (Visual and Operator-pending mode) are mapped to outer and inner incremental
+--   selections, respectively, using |vim.lsp.buf.selection_range()|
+vim.lsp.config['lua_ls'] = {
+    -- sudo pacman -S lua-language-server
+    cmd = { 'lua-language-server' },
+    filetypes = { 'lua' },
+    root_markers = {
+        { '.luarc.json', '.luarc.jsonc', '.git' },
+    },
+    settings = {
+        Lua = {
+            runtime = {
+                version = 'LuaJIT',
+            }
+        }
+    }
+}
+vim.lsp.enable('lua_ls')
+
+vim.lsp.config['gopls'] = {
+    -- go install golang.org/x/tools/gopls@latest
+    cmd = { 'gopls' },
+    filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+    root_markers = { 'go.mod', 'go.work', '.git' },
+    settings = {
+        gopls = {
+            gofumpt = true,
+            staticcheck = true,
+            analyses = {
+                unusedparams = true,
+                shadow = true,
+            },
+        },
+    },
+}
+vim.lsp.enable('gopls')
 
 -- -- vim.g.loaded_netrw = 1
 -- -- vim.g.loaded_netrwPlugin = 1

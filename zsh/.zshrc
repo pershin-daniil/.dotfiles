@@ -106,4 +106,5 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias bb="sleep 5 && systemctl suspend"
+alias bb='sleep 5 && systemctl suspend'
+alias visudo='sudo XDG_CONFIG_HOME=/home/virgil/.config EDITOR=nvim visudo'
