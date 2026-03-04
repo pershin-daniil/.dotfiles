@@ -89,6 +89,7 @@ vim.pack.add({
 local ok, fzf = pcall(require, 'fzf-lua')
 if ok then
     fzf.setup {
+        {'telescope','fzf-native'},
         winopts = {
             border = 'none',
             fullscreen = true,
@@ -99,8 +100,9 @@ if ok then
         },
     }
 
-    k.set( 'n', '<leader>gh', fzf.live_grep )
+    k.set( 'n', '<leader>gh', fzf.lgrep_curbuf )
     k.set( 'n', '<leader>fd', fzf.files )
+    k.set( 'n', '<leader>sn', function() fzf.grep_project({ cwd = vim.fn.stdpath 'config' }) end)
     k.set( 'i', '<C-F><C-F>',
     function()
         fzf.complete_file({
@@ -141,6 +143,8 @@ if ok then
         model = 'gpt-5.3-codex',
         treesitter = false,
     })
+
+    k.set( 'v', '<leader>cv', co.visual )
 else
     vim.notify(
         'co.nvim not loaded: ' .. tostring(co),
