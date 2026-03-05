@@ -89,7 +89,6 @@ vim.pack.add({
 local ok, fzf = pcall(require, 'fzf-lua')
 if ok then
     fzf.setup {
-        {'telescope','fzf-native'},
         winopts = {
             border = 'none',
             fullscreen = true,
