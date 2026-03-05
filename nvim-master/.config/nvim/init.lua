@@ -100,8 +100,9 @@ if ok then
         },
     }
 
-    k.set( 'n', '<leader>gh', fzf.lgrep_curbuf )
     k.set( 'n', '<leader>fd', fzf.files )
+    k.set( 'n', '<leader>gh', fzf.lgrep_curbuf )
+    k.set( 'n', '<leader>gp', fzf.grep_project )
     k.set( 'n', '<leader>sn', function() fzf.grep_project({ cwd = vim.fn.stdpath 'config' }) end)
     k.set( 'i', '<C-F><C-F>',
     function()
