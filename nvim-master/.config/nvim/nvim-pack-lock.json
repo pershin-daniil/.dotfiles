@@ -8,9 +8,25 @@
       "rev": "9004cbb4c065a32b690e909c49903967b45301eb",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
+    "nvim-treesitter": {
+      "rev": "544320a9cf5d6bf539ec1cc54d393064015670c4",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "nvim-web-devicons": {
+      "rev": "d7462543c9e366c0d196c7f67a945eaaf5d99414",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons"
+    },
+    "playground": {
+      "rev": "ba48c6a62a280eefb7c85725b0915e021a1a0749",
+      "src": "https://github.com/nvim-treesitter/playground"
+    },
     "tokyonight.nvim": {
       "rev": "5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd",
       "src": "https://github.com/folke/tokyonight.nvim"
+    },
+    "vim-wakatime": {
+      "rev": "cb7ba055330245b3a9d29f8bb4b82aeb2d52e580",
+      "src": "https://github.com/wakatime/vim-wakatime"
     },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",

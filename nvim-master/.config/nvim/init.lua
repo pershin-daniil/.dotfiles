@@ -1,6 +1,7 @@
--- NVIM v0.12.0-dev-2348+gd23f28cca2
+-- NVIM v0.13.0-dev-29+g1bcf2d7f90
 -- Build type: RelWithDebInfo
--- LuaJIT 2.1.1771261233
+-- LuaJIT 2.1.1774896198
+
 local o = vim.o
 
 o.nu = true
@@ -52,6 +53,13 @@ vim.cmd([[
 
 local g = vim.g
 
+-- :checkhealth
+g.loaded_node_provider = 0
+g.loaded_python3_provider = 0
+g.loaded_perl_provider = 0
+g.loaded_ruby_provider = 0
+--
+
 g.mapleader = ' '
 
 g.netrw_banner = 0
@@ -84,7 +92,17 @@ vim.cmd.colo('tokyonight-night')
 -- fzf
 vim.pack.add({
     { src = 'https://github.com/ibhagwan/fzf-lua' },
+    { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
 })
+
+local ok, devicons = pcall(require, 'nvim-web-devicons')
+if not ok then
+    vim.notify(
+        'nvim-web-devicons not loaded: ' .. tostring(devicons),
+        vim.log.levels.WARN,
+        { title = 'nvim config' }
+    )
+end
 
 local ok, fzf = pcall(require, 'fzf-lua')
 if ok then
@@ -126,32 +144,20 @@ else
     )
 end
 
--- co.nvim
+-- wakatime
 vim.pack.add({
-    {
-        src = '/home/virgil/Projects/co.nvim',
-        name = 'co.nvim',
-    },
-}, {
-    load = true,
-    confirm = false,
+    { src = 'https://github.com/wakatime/vim-wakatime' },
 })
 
-local ok, co = pcall(require,'co')
-if ok then
-    co.setup({
-        model = 'gpt-5.3-codex',
-        treesitter = false,
-    })
-
-    k.set( 'v', '<leader>cv', co.visual )
-else
+local ok, _ = pcall(require, 'wakatime')
+if not ok then
     vim.notify(
-        'co.nvim not loaded: ' .. tostring(co),
-        vim.log.level.WARN,
+        'wakatime not loaded: ' .. tostring(devicons),
+        vim.log.levels.WARN,
         { title = 'nvim config' }
     )
 end
+
 
 -- LSP
 -- 
@@ -185,7 +191,7 @@ vim.lsp.enable('lua_ls')
 vim.lsp.config['gopls'] = {
     -- go install golang.org/x/tools/gopls@latest
     cmd = { 'gopls' },
-    filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+    filetypes = { 'go', 'gomod' },
     root_markers = { 'go.mod', 'go.work', '.git' },
     settings = {
         gopls = {
