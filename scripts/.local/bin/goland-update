@@ -1,0 +1,52 @@
+#!/usr/bin/zsh
+set -euo pipefail
+
+INSTALL_DIR="/opt/goland"
+TARGET_DIR="$INSTALL_DIR/GoLand"
+TARGET_BIN="$TARGET_DIR/bin/goland"
+SYMLINK="$HOME/.local/bin/goland"
+URL="https://data.services.jetbrains.com/products/download?code=GO&platform=linux"
+
+need() { command -v "$1" >/dev/null 2>&1 || { echo "Missing dependency: $1" >&2; exit 1; }; }
+need curl
+need mktemp
+need tar
+need ln
+
+TMP_DIR="$(mktemp -d)"
+cleanup() { rm -rf "$TMP_DIR"; }
+trap cleanup EXIT
+
+echo "Stopping GoLand (if running from $INSTALL_DIR)..."
+pkill -f "$INSTALL_DIR" 2>/dev/null || true
+
+echo "Downloading latest GoLand for Linux..."
+curl -fL --retry 5 --retry-delay 1 --connect-timeout 10 -o "$TMP_DIR/goland.tar.gz" "$URL"
+
+echo "Extracting..."
+tar -xzf "$TMP_DIR/goland.tar.gz" -C "$TMP_DIR"
+
+EXTRACTED_DIR=""
+for dir in "$TMP_DIR"/*; do
+  if [[ -d "$dir" && -f "$dir/bin/goland.sh" ]]; then
+    EXTRACTED_DIR="$dir"
+    break
+  fi
+done
+
+if [[ -z "$EXTRACTED_DIR" ]]; then
+  echo "Unexpected archive layout: missing bin/goland.sh" >&2
+  exit 1
+fi
+
+echo "Installing to $TARGET_DIR ..."
+sudo mkdir -p "$INSTALL_DIR"
+mv "$EXTRACTED_DIR" "$TMP_DIR/GoLand.new"
+sudo rm -rf "$TARGET_DIR"
+sudo mv "$TMP_DIR/GoLand.new" "$TARGET_DIR"
+
+echo "Ensuring launcher symlink $SYMLINK ..."
+mkdir -p "$HOME/.local/bin"
+ln -sfn "$TARGET_BIN" "$SYMLINK"
+
+echo "Done. Run: goland"
