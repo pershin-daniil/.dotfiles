@@ -83,6 +83,7 @@ pipewire-alsa
 pipewire-jack
 pipewire-pulse
 plymouth
+polkit-kde-agent
 poppler
 python-distro
 python-pip
