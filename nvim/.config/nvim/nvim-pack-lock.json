@@ -8,6 +8,14 @@
       "rev": "9004cbb4c065a32b690e909c49903967b45301eb",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
+    "gitsigns.nvim": {
+      "rev": "25050e4ed39e628282831d4cbecb1850454ce915",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "mini.nvim": {
+      "rev": "a59a9b7fb0a42cbcf022938ee5f0724320b66f63",
+      "src": "https://github.com/echasnovski/mini.nvim"
+    },
     "nvim-treesitter": {
       "rev": "544320a9cf5d6bf539ec1cc54d393064015670c4",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
